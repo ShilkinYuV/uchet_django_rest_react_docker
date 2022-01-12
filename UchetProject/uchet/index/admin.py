@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import *
+from .models import UserProfile,Cheludi,Technics,Departments
 
 class CheludiAdmin(admin.ModelAdmin):
     list_display = ('FIO', 'department_id')
@@ -16,3 +16,5 @@ class DepartmentsAdmin(admin.ModelAdmin):
     list_display = ('name', 'address')
 
 admin.site.register(Departments, DepartmentsAdmin)
+
+admin.site.register(UserProfile)
