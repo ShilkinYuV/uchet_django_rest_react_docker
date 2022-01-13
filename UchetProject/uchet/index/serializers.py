@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Departments,Technics,Cheludi, UserProfile
+from .models import Departments, Technics,Cheludi, UserProfile, Attribute, TypeTechnics
 
 class DepartmentsSerializer(serializers.ModelSerializer):
     """Serializer для списка отделов"""
@@ -22,7 +22,22 @@ class TechnicsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Technics
         fields = '__all__'
+ 
+class AttributeSerializer(serializers.ModelSerializer):
+    """Serializer для списка техники"""
+
+    class Meta:
+        model = Attribute
+        fields = '__all__'
         
+class TypeTechnicsSerializer(serializers.ModelSerializer):
+    """Serializer для списка техники"""
+
+    class Meta:
+        model = TypeTechnics
+        fields = '__all__'
+        
+               
 class CheludiSerializer(serializers.ModelSerializer):
     """Serializer для списка людей"""
 

@@ -8,8 +8,8 @@ from rest_framework.settings import api_settings
 
 from .permissions import UchetPermissions
 
-from .serializers import DepartmentsSerializer, CheludiSerializer, TechnicsSerializer, UserPorfileSerializer
-from .models import Cheludi, Departments, Technics, UserProfile
+from .serializers import AttributeSerializer, DepartmentsSerializer, CheludiSerializer, TechnicsSerializer, TypeTechnicsSerializer, UserPorfileSerializer
+from .models import Cheludi, Departments, Technics, UserProfile, TypeTechnics, Attribute
 
 
 class DepartmentsViewSet(viewsets.ModelViewSet):
@@ -34,7 +34,20 @@ class TechnicsViewSet(viewsets.ModelViewSet):
     serializer_class = TechnicsSerializer
     permission_classes = (UchetPermissions,)
     authentication_classes = (TokenAuthentication,)
+    
+    
+class TypeTechnicsViewSet(viewsets.ModelViewSet):
+    queryset = TypeTechnics.objects.all()
+    serializer_class = TypeTechnicsSerializer
+    permission_classes = (UchetPermissions,)
+    authentication_classes = (TokenAuthentication,)
 
+
+class AttributeViewSet(viewsets.ModelViewSet):
+    queryset = Attribute.objects.all()
+    serializer_class = AttributeSerializer
+    permission_classes = (UchetPermissions,)
+    authentication_classes = (TokenAuthentication,)
 
 class UserLoginApiView(ObtainAuthToken):
     """Создание токена авторизации"""

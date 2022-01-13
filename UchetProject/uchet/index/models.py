@@ -5,6 +5,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 from django.db.models.deletion import CASCADE
 
+
 class UserProfileManager(BaseUserManager):
     """Manager for user profiles"""
 
@@ -54,7 +55,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         """Return string representation of our user"""
-        return '{name} ({email})'.format(name=self.name,email=self.email)
+        return '{name} ({email})'.format(name=self.name, email=self.email)
 
 
 class Cheludi (models.Model):
@@ -65,11 +66,27 @@ class Cheludi (models.Model):
     order = models.CharField(
         max_length=250, verbose_name='Приказ ввода вывода с удаленки')
     isItMOL = models.BooleanField(default=False, verbose_name='МОЛ?')
-    department_id = models.ForeignKey('Departments', on_delete=models.CASCADE, verbose_name='Отдел')
+    department_id = models.ForeignKey(
+        'Departments', on_delete=models.CASCADE, verbose_name='Отдел')
     cabinet = models.CharField(max_length=100, verbose_name='Кабинет')
 
     def __str__(self):
         return self.FIO
+
+
+class TypeTechnics(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Тип техники')
+
+    def __str__(self):
+        return self.name
+
+
+class Attribute(models.Model):
+    technics_type = models.ForeignKey(TypeTechnics, on_delete=models.CASCADE)
+    type = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.type
 
 
 class Technics (models.Model):
@@ -96,8 +113,23 @@ class Technics (models.Model):
     MOL_ID = models.ForeignKey(
         Cheludi, related_name='mol', on_delete=models.CASCADE, parent_link=True)
 
+    technics_type = models.ForeignKey(
+        TypeTechnics, related_name='tech', on_delete=CASCADE)
+    attribute = models.ManyToManyField(Attribute)
+    value_id = models.ForeignKey('ValueAttribute',related_name='technics_value_attr', on_delete=CASCADE)
+    
     def __str__(self):
         return self.name
+
+
+class ValueAttribute(models.Model):
+    value = models.CharField(max_length=255)
+    attribute = models.ForeignKey(Attribute, on_delete=CASCADE)
+    technics = models.ForeignKey(Technics, on_delete=CASCADE)
+    
+    def __str__(self):
+        return self.value
+
 
 
 class Departments (models.Model):
