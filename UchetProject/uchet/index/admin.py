@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import Attribute, TypeTechnics, UserProfile,Cheludi,Technics,Departments, ValueAttribute
+from .models import Attribute, TypeTechnics, UserProfile,Cheludi,Technics,Departments
 from django.forms import ModelChoiceField, ModelForm
 
 class CheludiAdmin(admin.ModelAdmin):
@@ -16,7 +16,6 @@ admin.site.register(Technics, TechnicsAdmin)
 
 admin.site.register(Attribute)
 admin.site.register(TypeTechnics)
-admin.site.register(ValueAttribute)
 
 class DepartmentsAdmin(admin.ModelAdmin):
     list_display = ('name', 'address')
