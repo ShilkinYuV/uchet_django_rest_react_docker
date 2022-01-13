@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+from django.contrib.postgres.fields import HStoreField
+# from django.contrib.postgres.fields import JSONField
 from django.db.models.deletion import CASCADE
 
 
@@ -115,21 +117,11 @@ class Technics (models.Model):
 
     technics_type = models.ForeignKey(
         TypeTechnics, related_name='tech', on_delete=CASCADE)
-    attribute = models.ManyToManyField(Attribute)
-    value_id = models.ForeignKey('ValueAttribute',related_name='technics_value_attr', on_delete=CASCADE)
-    
+
+    value_attribute = HStoreField()
+
     def __str__(self):
         return self.name
-
-
-class ValueAttribute(models.Model):
-    value = models.CharField(max_length=255)
-    attribute = models.ForeignKey(Attribute, on_delete=CASCADE)
-    technics = models.ForeignKey(Technics, on_delete=CASCADE)
-    
-    def __str__(self):
-        return self.value
-
 
 
 class Departments (models.Model):
