@@ -14,10 +14,10 @@ from .models import Cheludi, Departments, Technics, UserProfile
 
 class DepartmentsViewSet(viewsets.ModelViewSet):
     """ViewSet для управления списком отделов"""
-    queryset = Departments.objects.all()
-    serializer_class = DepartmentsSerializer
-    permission_classes = (UchetPermissions,)
-    authentication_classes = (TokenAuthentication,)
+    queryset = Departments.objects.all() # список всех объектов
+    serializer_class = DepartmentsSerializer # класс сериализатора
+    permission_classes = (UchetPermissions,) # классы разрешений 
+    authentication_classes = (TokenAuthentication,) # класс авторизации
 
 
 class CheludisViewSet(viewsets.ModelViewSet):
@@ -37,12 +37,12 @@ class TechnicsViewSet(viewsets.ModelViewSet):
 
 
 class UserLoginApiView(ObtainAuthToken):
-    """Handle creating user authentication tokens"""
+    """Создание токена авторизации"""
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
-    """Handle creating and updating profiles"""
+    """Viewset для создания профилей"""
     serializer_class = UserPorfileSerializer
     queryset = UserProfile.objects.all()
     authentication_classes = (TokenAuthentication,)

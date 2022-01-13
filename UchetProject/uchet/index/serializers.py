@@ -31,7 +31,7 @@ class CheludiSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class UserPorfileSerializer(serializers.ModelSerializer):
-    """Serializes a user profile object"""  
+    """Serializer для user'a"""  
     class Meta:
         model = UserProfile
         fields = ('id','email','name','password')
